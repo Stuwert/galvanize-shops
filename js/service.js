@@ -1,5 +1,5 @@
 app.service('postmgr', ['$http', function($http){
-  this.getItems = function(){
+  this.getTea = function(){
     return $http.get('../tea.json');
   }
 }])

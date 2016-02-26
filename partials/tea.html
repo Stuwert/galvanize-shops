@@ -1,0 +1,47 @@
+<h1>Howdy Partner!</h1>
+
+<div class="">
+  Gonna add search bar stuff here
+</div>
+
+
+<table>
+  <thead>
+    <th>
+      Tea
+    </th>
+    <th>
+      Information
+    </th>
+  </thead>
+  <tbody>
+    <tr ng-repeat='item in items'>
+      <td>
+        <img ng-src="{{item.imageUrl}}" alt="" />
+      </td>
+      <td>
+        <div class="">
+          <h2>{{item.name}}</h2>
+          <p>
+            {{item.price/100 | currency : $ : 2}}
+          </p>
+          <p>
+            Caffeine Scale {{item.caffeineScale}}
+          </p>
+          <p>
+            In Stock? {{item.inStock ? "Yes" : "No"}}
+          </p>
+          <ul>
+            <li ng-repeat='category in item.categories'>{{category}}</li>
+          </ul>
+        </div>
+        <div class="">
+          <select class="" name="">
+            <option ng-repeat='i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]' value="{{i}}">{{i}}</option>
+          </select>
+          <button type="button" name="button">Add</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
