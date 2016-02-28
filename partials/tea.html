@@ -1,47 +1,37 @@
 <h1>Howdy Partner!</h1>
 
-<div class="">
-  Gonna add search bar stuff here
+<div class="searchTerms">
+  <label for="">Search By Tea Categories</label>
+  <select ng-model="searchableCategory">
+    <option value=""></option>
+    <option ng-repeat='category in teaCategories' value="{{category}}">{{category}}</option>
+  </select>
+  <label for="">Search by Team Name</label>
+  <input type="text" ng-model='searchableName' name="name" value="">
+
 </div>
 
-
-<table>
-  <thead>
-    <th>
-      Tea
-    </th>
-    <th>
-      Information
-    </th>
-  </thead>
-  <tbody>
-    <tr ng-repeat='item in items'>
-      <td>
-        <img ng-src="{{item.imageUrl}}" alt="" />
-      </td>
-      <td>
-        <div class="">
-          <h2>{{item.name}}</h2>
-          <p>
-            {{item.price/100 | currency : $ : 2}}
-          </p>
-          <p>
-            Caffeine Scale {{item.caffeineScale}}
-          </p>
-          <p>
-            In Stock? {{item.inStock ? "Yes" : "No"}}
-          </p>
-          <ul>
-            <li ng-repeat='category in item.categories'>{{category}}</li>
-          </ul>
-        </div>
-        <div class="">
-          <select class="" name="">
-            <option ng-repeat='i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]' value="{{i}}">{{i}}</option>
-          </select>
-          <button type="button" name="button">Add</button>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div ng-repeat='tea in items | filter: {categories: searchableCategory, name: searchableName}' class='singleTea'>
+  <div class="image">
+    <img ng-src='{{tea.imageUrl}}' alt="" />
+    <p>
+      {{tea.ingredients}}
+    </p>
+  </div>
+  <div class="moreInfo">
+    <select class="" name="">
+      <option ng-repeat='i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]' value="{{i}}">{{i}}</option>
+    </select>
+    <button type="button" name="button">Add To Cart</button>
+    <p>
+      {{tea.caffeineScale}}
+    </p>
+    <p>
+      {{tea.inStock ? "Available" : "Not Available"}}
+    </p>
+  </div>
+  <ul class='teaDetails'>
+    <li><h3>{{tea.name}}</h3></li>
+    <li>{{tea.price / 100 | currency}}</li>
+  </ul>
+</div>
