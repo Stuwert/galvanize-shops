@@ -10,4 +10,5 @@ app.controller('TeaController', ['$scope', 'postmgr', function($scope, postmgr){
       })
     })
   })
+  $scope.items = getShoppingCart().length;
 }])
