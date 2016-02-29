@@ -50,3 +50,11 @@ li:first-of-type{
   justify-content: space-around;
   align-items: center;
 }
+
+.shoppingCart {
+  position: absolute;
+  z-index: 5;
+  width: 50vw;
+  height: 600px;
+  background-color: white;
+}
