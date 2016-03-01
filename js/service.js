@@ -6,7 +6,9 @@ app.service('postmgr', ['$http', function($http){
 
 app.service('shopCart', function(){
   var that = this;
-  localStorage.setItem('shoppingCart', '[]')
+  if (!localStorage.getItem('shoppingCart')){
+    localStorage.setItem('shoppingCart', '[]')
+  }
   this.addItem = function(newItem){
     var currArray = JSON.parse(localStorage.getItem('shoppingCart'));
     if (that.hasId(currArray, newItem["_id"]) !== -1){

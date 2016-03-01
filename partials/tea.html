@@ -1,25 +1,54 @@
-<h1>Howdy Partner!</h1>
-
 <div class="searchTerms">
-  <label for="">Search By Tea Categories</label>
-  <select ng-model="searchableCategory">
-    <option value=""></option>
-    <option ng-repeat='category in teaCategories' value="{{category}}">{{category}}</option>
-  </select>
-  <label for="">Search by Team Name</label>
-  <input type="text" ng-model='searchableName' name="name" value="">
-  <button ng-click='toggleCart()' type="button" name="button">Checkout {{shopCart.length > 0 ? "(" + shopCart.length + ")" : "Empty"}}</button>
+  <div>
+    <label for="">Search By Tea Categories</label>
+    <select ng-model="searchableCategory">
+      <option value=""></option>
+      <option ng-repeat='category in teaCategories' value="{{category}}">{{category}}</option>
+    </select>
+  </div>
+  <div>
+    <label for="">Search by Team Name</label>
+    <input type="text" ng-model='searchableName' name="name" value="">
+  </div>
+  <div>
+    <button ng-click='toggleCart()' type="button" name="button">Checkout {{shopCart.length > 0 ? "(" + shopCart.length + ")" : "Empty"}}</button>
+  </div>
 </div>
 
 <div ng-show="showCart" class='shoppingCart'>
-  <div ng-show='shopCart.length < 1'>
-    <p>
+  <h2>
+    Your Shopping Cart
+  </h2>
+  <div ng-show='shopCart.length < 1' class='emptyShopCart'>
+    <h4>
       Add some items!
-    </p>
+    </h4>
   </div>
-  <div ng-repeat="tea in shopCart">
-    <h2>{{tea.name}}</h2>
-    <input ng-model='tea.quantity' ng-change='updatePrice($index, tea.quantity)' type="text" name="name" value="">
+  <div class='shopCartTea' ng-repeat="tea in shopCart">
+    <div class="leftSide">
+      <h4>{{tea.name}}</h4>
+      <img ng-src='{{tea.imageUrl}}' alt="" />
+      <p>
+        {{tea.ingredients}}
+      </p>
+      <p>
+        Caffeine Scale:  {{tea.caffeineScale}}
+      </p>
+    </div>
+    <div class="rightSide">
+      <label for="">Quantity</label>
+      <input ng-model='tea.quantity' ng-change='updatePrice($index, tea.quantity)' type="number" name="name" value="">
+      <p>SubTotal: {{tea.price * tea.quantity / 100 | currency}}</p>
+      <button class='remove' type="button" name="button" ng-click='deleteItem($index)'>Remove From Cart</button>
+    </div>
+  </div>
+  <p>
+    Total: {{shopCartTotal | currency}}
+  </p>
+</div>
+
+<main>
+  <div ng-repeat='tea in items | filter: {categories: searchableCategory, name: searchableName}' class='singleTea'>
     <div class="image">
       <img ng-src='{{tea.imageUrl}}' alt="" />
       <p>
@@ -32,7 +61,6 @@
       </select>
       <button type="button" name="button" ng-click="addToCart(tea)">Add To Cart</button>
       <p>
-        {{tea.caffeineScale}}
       </p>
       <p>
         {{tea.inStock ? "Available" : "Not Available"}}
@@ -40,36 +68,10 @@
     </div>
     <ul class='teaDetails'>
       <li><h3>{{tea.name}}</h3></li>
-      <li>{{tea.price * tea.quantity / 100 | currency}}</li>
+      <li>{{tea.price / 100 | currency}}</li>
+      <li>
+        {{tea.caffeineScale}}
+      </li>
     </ul>
-    <button type="button" name="button" ng-click='deleteItem($index)'>Delete</button>
   </div>
-  <p>
-    {{shopCartTotal | currency}}
-  </p>
-</div>
-
-<div ng-repeat='tea in items | filter: {categories: searchableCategory, name: searchableName}' class='singleTea'>
-  <div class="image">
-    <img ng-src='{{tea.imageUrl}}' alt="" />
-    <p>
-      {{tea.ingredients}}
-    </p>
-  </div>
-  <div class="moreInfo">
-    <select class="" name="" ng-model="tea.quantity">
-      <option ng-repeat='i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]' value="{{i}}">{{i}}</option>
-    </select>
-    <button type="button" name="button" ng-click="addToCart(tea)">Add To Cart</button>
-    <p>
-      {{tea.caffeineScale}}
-    </p>
-    <p>
-      {{tea.inStock ? "Available" : "Not Available"}}
-    </p>
-  </div>
-  <ul class='teaDetails'>
-    <li><h3>{{tea.name}}</h3></li>
-    <li>{{tea.price / 100 | currency}}</li>
-  </ul>
-</div>
+</main>

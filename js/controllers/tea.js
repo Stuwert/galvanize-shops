@@ -1,10 +1,10 @@
 app.controller('TeaController', ['$scope', 'postmgr', 'shopCart', function($scope, postmgr, shopCart){
   $scope.showCart = false;
-  $scope.shopCartTotal = 0;
+  $scope.shopCartTotal = shopCart.total();
   $scope.toggleCart = function(){
     $scope.showCart = !$scope.showCart;
   }
-  
+
   $scope.teaCategories = []
 
   postmgr.getTea().then(function(data){
